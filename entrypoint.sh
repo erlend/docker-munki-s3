@@ -7,7 +7,7 @@ if [ $? = 0 ]; then
   cat > $config_file <<-EOF
   server {
     listen 443;
-    server_name munki
+    server_name munki;
 
     ssl on;
     ssl_certificate $SSL_PATH/certs/$SSL_NAME.pem;
