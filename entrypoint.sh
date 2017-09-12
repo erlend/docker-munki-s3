@@ -23,6 +23,10 @@ if [ $? = 0 ]; then
         deny all;
       }
 
+      if (\$remote_addr = ${MIRROR_EXT_IP:-127.0.0.1}) {
+        rewrite ^ http://${MIRROR_INT_IP:-127.0.0.1}/\$request_uri break;
+      }
+
       set \$key \$1;
 
       # Setup AWS Authorization header
