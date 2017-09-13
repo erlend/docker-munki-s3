@@ -23,8 +23,8 @@ if [ $? = 0 ]; then
         deny all;
       }
 
-      if (\$remote_addr = ${MIRROR_EXT_IP:-127.0.0.1}) {
-        rewrite ^ http://${MIRROR_INT_IP:-127.0.0.1}/\$request_uri break;
+      if (\$remote_addr = ${MIRROR_EXT:-0.0.0.0}) {
+        return 301 ${MIRROR_INT:-http://0.0.0.0}/\$request_uri;
       }
 
       set \$key \$1;
