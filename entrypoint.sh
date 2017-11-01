@@ -1,6 +1,8 @@
 #!/bin/sh
 config_file=/etc/nginx/conf.d/default.conf
 
+S3_PATH=${S3_PATH:-https://$S3_BUCKET.s3-$S3_REGION.amazonaws.com}
+
 touch $config_file 2>/dev/null
 if [ $? = 0 ]; then
   echo Configuring nginx for bucket: $S3_BUCKET.
@@ -52,7 +54,7 @@ if [ $? = 0 ]; then
       proxy_set_header Host $S3_BUCKET.s3.amazonaws.com;
       rewrite .* /\$key break;
 
-      proxy_pass https://$S3_BUCKET.s3-$S3_REGION.amazonaws.com;
+      proxy_pass $S3_PATH;
     }
   }
 EOF
